@@ -21,6 +21,10 @@
           doCheck = true;
           pname = "myecho";
         };
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        installPhase = ''
+          cp target/release/myecho $out/bin/
+        '';
         postInstall = ''
           wrapProgram "$out/bin/myecho""
         '';
