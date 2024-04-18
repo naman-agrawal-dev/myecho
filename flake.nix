@@ -21,7 +21,9 @@
           doCheck = true;
           pname = "myecho";
         };
-
+        postInstall = ''
+          wrapProgram "$out/bin/myecho""
+        '';
         defaultApp = utils.lib.mkApp {
           drv = self.defaultPackage."${system}";
         };
