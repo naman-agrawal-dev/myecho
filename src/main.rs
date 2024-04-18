@@ -36,6 +36,7 @@ impl Args {
         let mut escape = false;
         for character in input.chars() {
             if escape {
+                escape = false;
                 match character {
                     'n' => output.push('\n'),
                     't' => output.push('\t'),
@@ -176,6 +177,13 @@ mod escape_characters {
         let input = "Hello, World!\\t".to_string();
         let output = Args::apply_escape_characters(input);
         assert_eq!(output, "Hello, World!\t");
+    }
+
+    #[test]
+    fn multiple_escape_characters() {
+        let input = "Hello, \\tWorld!\\n".to_string();
+        let output = Args::apply_escape_characters(input);
+        assert_eq!(output, "Hello, \tWorld!\n");
     }
 
     #[test]
