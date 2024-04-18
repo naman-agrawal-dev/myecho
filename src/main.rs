@@ -33,10 +33,10 @@ impl Args {
 
     fn apply_escape_characters(input: String) -> String {
         let mut output = "".to_string();
-        let mut escape = false;
+        let mut escape_flag = false;
         for character in input.chars() {
-            if escape {
-                escape = false;
+            if escape_flag {
+                escape_flag = false;
                 match character {
                     'n' => output.push('\n'),
                     't' => output.push('\t'),
@@ -49,7 +49,7 @@ impl Args {
                 continue;
             }
             if character == '\\' {
-                escape = true;
+                escape_flag = true;
                 continue;
             }
             output.push(character);
