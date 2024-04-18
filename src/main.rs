@@ -58,7 +58,7 @@ impl Args {
     }
 
     pub fn echo(self) -> String {
-        let mut output = self.inner.into_iter().collect::<String>().to_string();
+        let mut output = self.inner.into_iter().collect::<Vec<String>>().join(" ");
         if !self.end_without_newline_character {
             output += "\n";
         }
@@ -136,6 +136,19 @@ mod echo {
         let string_args = vec!["file_name".to_string(), test_arg.clone()];
         let args = Args::parse_args(string_args);
         assert_eq!(args.echo(), test_arg + "\n");
+    }
+
+    #[test]
+    fn echo_multiple_args() {
+        let test_arg1 = "one".to_string();
+        let test_arg2 = "two".to_string();
+        let string_args = vec![
+            "file_name".to_string(),
+            test_arg1.clone(),
+            test_arg2.clone(),
+        ];
+        let args = Args::parse_args(string_args);
+        assert_eq!(args.echo().as_str(), test_arg1 + " " + &test_arg2 + "\n");
     }
 
     #[test]
